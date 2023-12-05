@@ -43,6 +43,10 @@ class AnimalsController < ApplicationController
       end
     end
 
+    def sightings 
+      animal = Animal.find(params[:id])
+      render json: { animal: animal, sightings: animal_sightings }
+    end
 
     
     private
