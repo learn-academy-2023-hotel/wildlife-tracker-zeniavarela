@@ -18,7 +18,7 @@ class AnimalsController < ApplicationController
     if animal.valid?
       render json: animal
     else
-      render json: animal.errors
+      render json: animal.errors, status: 422
     end
   end
 
@@ -28,7 +28,7 @@ class AnimalsController < ApplicationController
       if animal.destroy
         render json: animal
       else
-        render json: animal.errors
+        render json: animal.errors, status: 422
       end
     end
 
@@ -39,7 +39,7 @@ class AnimalsController < ApplicationController
       if animal.valid?
         render json: animal
       else
-        render json: animal.errors 
+        render json: animal.errors, status: 422
       end
     end
 
@@ -51,7 +51,20 @@ class AnimalsController < ApplicationController
     
     private
     
+#     {
+#   "animal": {
+#     "name": "Name",
+#     "binomial": "Binomial",
+#     "sightings_attributes": [
+#       {
+#         "latitude": "5231",
+#         "longitude": "1234",
+#         "date": "2023-12-05"
+#       }
+#     ]
+#   }
+# }
     def animal_params
-      params.require(:animal).permit(:name, :binomial)
+      params.require(:animal).permit(:name, :binomial, sightings_attributes: [:latitude, :longitude, :date])
     end
 end

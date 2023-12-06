@@ -22,7 +22,7 @@ class SightingsController < ApplicationController
     if sighting.valid?
       render json: sighting
     else
-      render json: sighting.errors
+      render json: sighting.errors, status: 422
     end
   end
 
@@ -32,7 +32,7 @@ class SightingsController < ApplicationController
       if sighting.destroy
         render json: sighting
       else
-        render json: sighting.errors
+        render json: sighting.errors, status: 422
       end
     end
 
@@ -43,7 +43,7 @@ class SightingsController < ApplicationController
       if sighting.valid?
         render json: sighting
       else
-        render json: sighting.errors 
+        render json: sighting.errors, status: 422
       end
     end
 
@@ -59,7 +59,7 @@ class SightingsController < ApplicationController
     private
     
     def sighting_params
-      params.require(:sighting).permit(:latitude, :longitude, :date, :animal_id, :start_date, :end_date)
+      params.require(:sighting).permit(:latitude, :longitude, :date, :animal_id)
     end
 
 end
